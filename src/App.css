@@ -1,0 +1,44 @@
+.app {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1.5fr 4fr 1fr 1.5fr 1.5fr;
+  grid-template-areas: "logo . . . . . ." ". . . . . . ." ". . illustration illustration illustration . ." ". . . . . . ." ". button1 button1 . button2 button2 ." ". . . . . . .";
+}
+
+.logo{
+  grid-area: logo;
+  width: 100%;
+  height: 100%;
+  background-color: pink;
+}
+
+.buttonCreate{
+  grid-area: button1;
+  width: 100%;
+  height: 100%;
+  background-color: pink;
+}
+
+.illustration{
+  grid-area: illustration;
+  width: 100%;
+  height: 100%;
+  background-color: pink;
+}
+
+.buttonJoin{
+  grid-area: button2;
+  width: 100%;
+  height: 100%;
+  background-color: pink;
+}
+
+@media screen and (max-width: 700px) {
+  .app{
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 1fr 2fr 0.5fr 1fr 0.25fr 1fr 1fr;
+    grid-template-areas: ". . ." ". logo ." ". . ." ". button1 ." ". . ." ". button2 ." ". . .";
+  }
+}
