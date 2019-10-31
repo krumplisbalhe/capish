@@ -1,0 +1,50 @@
+.result{
+	height: 100%;
+	background-color: white;
+	display: grid;
+	align-items: center;
+	justify-content: center;
+  grid-template-columns: 0.25fr 1fr 0.25fr;
+  grid-template-rows: 50px 0.25fr 6fr 0.5fr 50px;
+  grid-template-areas: ". . ." ". question ." ". result ." ". button ." ". . .";
+}
+
+.item{
+	display: flex;
+	flex-direction: row;
+	padding: 20px;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.resultItems{
+	grid-area: result;
+}
+
+.barContainer{
+	width: 90%;
+	display: grid;
+	grid-template-columns: repeat(100, 1fr);
+	border: 1px blue solid;
+}
+
+.bar{
+	/* background-color: blue; */
+	border-right: 1px solid blue;
+	height: 40px;
+}
+
+.percentageNumber{
+	padding-right: 15px;
+	padding-left: 15px;
+}
+
+.question {
+	grid-area: question;
+	text-align: center;
+}
+
+.restartButton {
+	grid-area: button;
+	align-self: end;
+}
