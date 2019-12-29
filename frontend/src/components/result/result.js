@@ -1,48 +1,63 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 // import {BrowserRouter as Link} from 'react-router-dom'
 import './result.css'
 import {type2, type3, type4} from '../emojis/emojis'
+import Loader from '../emojis/eyeslookingaround.gif'
 
-const Result = ({question = 'What the fuck?',type=4, results=[25,65, 56, 45]}) => {
+const Result = ({question = 'What the fuck?',type=4, results=[7, 12, 56, 45], isFetching=false}) => {
   const totalOfResults = results.reduce((a, b) => a + b, 0)
   const showNumberInPercentage = (number) => {
-    const numberInPercentage = Math.round((number/totalOfResults) * 100)
+    const numberInPercentage = ((number/totalOfResults) * 100)
     return numberInPercentage
   }
+
   const typeOfArray = (t) => {
-    if(t==2){
+    if(type==2){
       return type2
     }
-    if(t==3){
+    if(type==3){
       return type3
     }
-    if(t==4){
+    if(type==4){
       return type4
     }
   }
 
 	return (
-    <div className="result">
-      <h1 className="question">{question}</h1>
-      <div className="resultItems">
-        {results.sort().reverse().map( (item, index) => (
-          <div className="item">
-            <img src={typeOfArray(type)[index]} height="42" width="42"></img>
-            <span className="percentageNumber" index={index}>
-              {`${showNumberInPercentage(item)}%`}
-            </span>
-            <div className="barContainer">
-              <div
-                className="bar"
-                style={{gridColumnStart: 1, gridColumnEnd: showNumberInPercentage(item)}}
-              >
+    !isFetching ? (
+      <div className="result">
+        <h1 className="question">{question}</h1>
+        <div className="resultItems">
+          {results.map( (item, index) => (
+            <div className="item">
+              <img src={typeOfArray(type)[index]} height="42" width="42"></img>
+              <span className="percentageNumber" index={index}>
+                {`${showNumberInPercentage(item).toFixed(1)}%`}
+              </span>
+              <div className="barContainer">
+                <div
+                  className="bar"
+                  style={{gridColumnEnd: Math.round(showNumberInPercentage(item))}}
+                >
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+        <Link class="restartButton" to="/create">
+          <button>
+            New question
+          </button>
+        </Link>
       </div>
-      <button class="restartButton blueButton">Restart</button>
-    </div>
+    )
+    :
+    (
+      <div className="loaderContainer">
+        <img src={Loader} height="70" width="70"></img>
+      </div>
+    )
   )
 }
 

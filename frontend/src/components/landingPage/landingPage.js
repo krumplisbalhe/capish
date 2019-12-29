@@ -1,17 +1,22 @@
 import React from 'react'
-import {BrowserRouter as Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import './landingPage.css'
 
 const LandingPage = () => {
 	return (
     <div className="landingPage">
+			<h1 className="landingText">Get/give <span>anonymous</span> feedback <span>fast</span></h1>
 			<div className="illustration"></div>
-			<button className="buttonCreate blueButton">
-				<Link to="/create">Create</Link>
-			</button>
-      <button className="buttonJoin blueButton">
-				<Link to="/join">Join</Link>
-			</button>
+				<Link className="buttonCreate" to="/create">
+					<button>
+						Create
+					</button>
+				</Link>
+				<Link className="buttonJoin" to="/join">
+					<button>
+						Join
+					</button>
+				</Link>
     </div>
   )
 }

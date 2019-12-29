@@ -1,5 +1,21 @@
 .join{
 	height: 100%;
+}
+
+.textWrapper {
+	height: 20%;
+	display: flex;
+	align-items: flex-end;
+	text-align: center;
+	justify-content: center;
+}
+
+h1{
+	margin: 0;
+}
+
+.options{
+	height: 60%;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-evenly;
@@ -7,19 +23,21 @@
 }
 
 .input{
-	width: 100px;
-  height: 50px;
-	background-color: pink;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: 40%;
+  justify-content: space-around;
 }
 
-.qr{
-	width: 100px;
-  height: 50px;
-  background-color: pink;
+.input input{
+	font-size: 34px;
+	text-align: center;
 }
 
 @media screen and (max-width: 700px) {
-  .join{
+  .options{
 		flex-direction: column;
+		height: 80%;
   }
 }

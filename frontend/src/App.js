@@ -1,12 +1,13 @@
 import React from 'react'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
-import './App.css'
 import LandingPage from './components/landingPage/landingPage'
 import Create from './components/create/create'
 import Join from './components/join/join'
 import Answer from './components/answer/answer'
 import Share from './components/share/share'
 import Result from './components/result/result'
+import './vars.css'
+import './App.css'
 
 function App() {
   return (
@@ -21,9 +22,13 @@ function App() {
               exact path="/"
               render={() => <LandingPage />}
           />
-          <Route
+          {/* <Route
               path="/create"
               render={() => <Create />}
+          /> */}
+          <Route
+              path="/room/:id"
+              render={() => <Share />}
           />
           <Route
             path="/join"

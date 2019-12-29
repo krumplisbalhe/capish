@@ -1,35 +1,49 @@
 .share {
 	height: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 50px 1fr 1fr 1fr 0.5fr 90px;
-  grid-template-areas: ". . ." ". shareText ." ". key ." ". qrCode ." ". button ." ". . .";
+	display: grid;
+	justify-items: center;
+	align-items: center;
+	grid-template-columns: 1fr 3fr 1fr;
+	grid-template-rows: 50px 0.5fr 20px 2fr 20px 0.5fr 90px;
+	grid-template-areas: ". . ." ". shareText ." ". . ." ". qrCode ." ". . ." ". button ." ". . .";
 }
 
-.button {
+.useButton {
 	grid-area: button;
-	height: 100%;
-	width: 100%;
-	background-color: pink;
 }
 
 .qrCode {
 	grid-area: qrCode;
-	height: 100%;
-	width: 100%;
-	background-color: pink;
-}
-
-.key {
-	grid-area: key;
-	height: 100%;
-	width: 100%;
-	background-color: pink;
+	text-align: center;
 }
 
 .shareText {
 	grid-area: shareText;
-	height: 100%;
-	width: 100%;
-	background-color: pink;
+	text-align: center;
+}
+
+.camera{
+	color: var(--blue);
+	width: 30px;
+	height: 30px;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.linkText, .capishKey{
+	font-weight: bold;
+	color: var(--pink);
+}
+
+@media screen and (max-width: 720px) {
+	.share {
+		grid-template-columns: 0.5fr 3fr 0.5fr;
+		grid-template-rows: 50px 0.5fr 20px 1fr 20px 0.5fr 40px;
+	}
+}
+
+@media screen and (max-width: 420px) {
+	.shareText {
+		font-size: 28px;
+	}
 }

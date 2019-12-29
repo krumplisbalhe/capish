@@ -3,59 +3,86 @@
   display: grid;
   grid-template-columns: 1fr 1fr 20px 1fr 20px 1fr 1fr;
   grid-template-rows: 50px 50px 1fr 50px 2fr 50px 1fr 90px;
-  grid-template-areas: ". . . . . . ." ". question question question question question ." ". questionInput questionInput questionInput questionInput questionInput ." ". . . . . . ." ". img1 . img2 . img3 ." ". . . . . . ." ". . button button button . ." ". . . . . . .";
+  grid-template-areas: ". . . . . . ." "question question question question question question question" ". questionInput questionInput questionInput questionInput questionInput ." ". . . . . . ." ". img1 . img2 . img3 ." ". . . . . . ." ". . button button button . ." ". . . . . . .";
 }
 
-.question {
+h2{
+  font-size: 30px;
+  -webkit-text-stroke: 0.5px #A7A9AD;
+}
+
+.img1, .img2, .img3{
+  text-align: center;
+  align-items: center;
+  color: #A7A9AD;
+  background-color: var(--yellow);
+  cursor: pointer;
+  position: relative;
+}
+
+.img1:hover:not(.active), .img2:hover:not(.active), .img3:hover:not(.active){
+  opacity: 0.5;
+}
+
+.check{
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 0px;
+  right: 25%;
+  color: var(--pink);
+}
+
+.active{
+  color: var(--blue);
+}
+
+.active h2{
+  -webkit-text-stroke: 0.5px var(--blue);
+}
+
+.firstQuestion {
   grid-area: question;
   margin: 0;
-  font-weight: normal;
+  justify-self: center;
 }
 
 .questionInput {
-  color: #0143E5;
   grid-area: questionInput;
-  background: transparent;
-  border: none;
-  border-bottom: 0.5px solid #0143E5;
-  outline: none;
   font-size: 32px;
-  font-weight: lighter;
-}
-
-.questionInput:focus{
-  border-bottom: 3px solid #0143E5;
 }
 
 .img1 {
 	grid-area: img1;
-	width: 100%;
-  height: 100%;
-  background-color: pink;
 }
 
 .img2 {
 	grid-area: img2;
-	width: 100%;
-  height: 100%;
-  background-color: pink;
 }
 
 .img3 {
 	grid-area: img3;
-	width: 100%;
-  height: 100%;
-  background-color: pink;
 }
 
-.button {
+.createCapishButton {
   grid-area: button;
+  justify-self: center;
+}
+
+
+@media screen and (max-width: 1000px) {
+  .create{
+    grid-template-areas: ". . . . . . ." "question question question question question question question" ". questionInput questionInput questionInput questionInput questionInput ." ". . . . . . ." "img1 img1 . img2 . img3 img3" ". . . . . . ." ". . button button button . ." ". . . . . . .";
+  }
 }
 
 @media screen and (max-width: 700px) {
   .create{
 		grid-template-columns: 0.5fr 2fr 0.5fr;
-  	grid-template-rows: 50px 50px 1fr 50px 2fr 50px 2fr 50px 2fr 50px 1.5fr 50px;
-		grid-template-areas: ". . ." ". question ." ". questionInput ." ". . ." ". img1 ." ". . ." ". img2 ." ". . ." ". img3 ." ". . ." ". button ." ". . .";
+    grid-template-rows: 1fr 20px 0.5fr 40px 0.5fr 20px 0.5fr 20px 0.5fr 40px 1fr 0px;
+		grid-template-areas: ". question ." ". . ." ". questionInput ." ". . ." ". img1 ." ". . ." ". img2 ." ". . ." ". img3 ." ". . ." ". button ." ". . .";
+  }
+  .firstQuestion, .createCapishButton{
+    justify-self: center;
   }
 }

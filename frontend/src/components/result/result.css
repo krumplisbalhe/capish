@@ -25,12 +25,13 @@
 	width: 90%;
 	display: grid;
 	grid-template-columns: repeat(100, 1fr);
-	border: 1px blue solid;
+	border: 1px solid var(--blue);
 }
 
 .bar{
-	/* background-color: blue; */
-	border-right: 1px solid blue;
+	background-color: var(--blue);
+	grid-column-start: 1;
+	border-right: 1px solid var(--blue);
 	height: 40px;
 }
 
@@ -46,5 +47,13 @@
 
 .restartButton {
 	grid-area: button;
-	align-self: end;
+	width: 200px;
+	justify-self: center;
+}
+
+.loaderContainer{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 80%;
 }
