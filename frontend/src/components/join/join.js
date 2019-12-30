@@ -1,8 +1,13 @@
-import React from 'react'
-// import {Link} from 'react-router-dom'
+import React, {useState} from 'react'
+import {useHistory} from 'react-router-dom'
 import './join.css'
 
-const Join = ({joinLink = "https://www.npmjs.com/package/qrcode.react"}) => {
+const Join = () => {
+	const [inputValue, setInputValue] = useState('')
+	const history = useHistory()
+	const joinRoom = () => {
+		history.push(`/room/${inputValue}`)
+	}
 	return (
 		<div className="join">
 		<div className="textWrapper">
@@ -10,8 +15,8 @@ const Join = ({joinLink = "https://www.npmjs.com/package/qrcode.react"}) => {
 		</div>
     <div className="options">
 			<div className="input">
-				<input/>
-				<button>Join</button>
+				<input type="text" onChange={e => setInputValue(e.target.value)} />
+				<button onClick={joinRoom}>Join</button>
 			</div>
 		</div>
 		</div>

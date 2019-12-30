@@ -8,7 +8,7 @@ const Create = () => {
 	return (
     <div className="create">
 			<h1 className="firstQuestion">Add your question and choose from the options:</h1>
-			<input class="questionInput" />
+			<input className="questionInput" />
 				<div
 					onClick={()=>setActiveOption('1')}
 					className={activeOption === '1' ? 'active img1' : 'img1'}
@@ -51,7 +51,7 @@ const Create = () => {
 						Deep understanding
 					</h3>
 				</div>
-			<Link class="createCapishButton" to="/share">
+			<Link className="createCapishButton" to="/share">
 				<button>
 					Capish?
 				</button>

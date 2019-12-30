@@ -5,10 +5,10 @@ import './answer.css'
 const Answer = () => {
 	return (
     <div className="answer">
-      <div class="questionToAnswer"></div>
-      <div class="optionsContainer"></div>
-      <div class="slider"></div>
-      <div class="submitAnswer"></div>
+      <div className="questionToAnswer"></div>
+      <div className="optionsContainer"></div>
+      <div className="slider"></div>
+      <div className="submitAnswer"></div>
     </div>
   )
 }

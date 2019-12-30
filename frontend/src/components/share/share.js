@@ -1,18 +1,17 @@
 import React from 'react'
-import {Link, useParams} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import QRCode from 'qrcode.react'
 import {ReactComponent as Camera} from '../assets/camera.svg'
 import './share.css'
 
-const Share = ({joinLink = "https://www.npmjs.com/package/qrcode.react", capishKey="lba6k"}) => {
-	const {id} = useParams()
+const Share = ({roomId}) => {
+	const joinLink = `http://localhost:3000/room/${roomId}`
 	return (
     <div className="share">
 			<h1 className="shareText">
-				Scan the QR code with your <Camera /> <br/> or visit <span className="linkText">capish/join</span> and use the key: <span className="capishKey">{capishKey}</span>
-				{id}
+				Scan the QR code with your <Camera /> <br/> or visit <span className="linkText">capish/join</span> and use the key: <span className="capishKey">{roomId}</span>
 			</h1>
-			<div class="qrCode">
+			<div className="qrCode">
 				<Link to={joinLink}>
 					<QRCode
 						value={joinLink}
@@ -22,7 +21,7 @@ const Share = ({joinLink = "https://www.npmjs.com/package/qrcode.react", capishK
 					/>
 				</Link>
 			</div>
-			<button class="useButton">Use capish</button>
+			<button className="useButton">Use capish</button>
     </div>
   )
 }

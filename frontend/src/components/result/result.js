@@ -13,13 +13,13 @@ const Result = ({question = 'What the fuck?',type=4, results=[7, 12, 56, 45], is
   }
 
   const typeOfArray = (t) => {
-    if(type==2){
+    if(type===2){
       return type2
     }
-    if(type==3){
+    if(type===3){
       return type3
     }
-    if(type==4){
+    if(type===4){
       return type4
     }
   }
