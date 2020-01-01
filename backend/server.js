@@ -36,17 +36,27 @@ app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 
 io.on('connection', socket => {
-  console.log('a user connected')
+  const roomId = socket.handshake.query.roomId
+  console.log('a user connected', roomId)
+  if(roomId){
+    knex('rooms').where({roomId: roomId}).then(data=>{
+      console.log(data, 'roomexists')
+      io.emit('roomUpdated', data[0])
+    })
+  }
   socket.on('create', hashedUser => {
     console.log(hashedUser)
     const randomRoomId = Math.random().toString(36).substring(2,7)
-    knex('rooms').insert({
+    const data = {
       creator: hashedUser,
       roomId: randomRoomId,
-      isActive: false
-    }).then(res => {
+      isActive: false,
+      question: '',
+      result: {}
+    }
+    knex('rooms').insert(data).then(res => {
       console.log(res)
-      io.emit('roomCreated', randomRoomId)
+      io.emit('roomCreated', data)
     })
   })
   socket.on('disconnect', () => {

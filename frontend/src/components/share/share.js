@@ -4,7 +4,7 @@ import QRCode from 'qrcode.react'
 import {ReactComponent as Camera} from '../assets/camera.svg'
 import './share.css'
 
-const Share = ({roomId}) => {
+const Share = ({roomId, onClickCreateButton}) => {
 	const joinLink = `http://localhost:3000/room/${roomId}`
 	return (
     <div className="share">
@@ -21,7 +21,7 @@ const Share = ({roomId}) => {
 					/>
 				</Link>
 			</div>
-			<button className="useButton">Use capish</button>
+			<button className="useButton" onClick={()=>onClickCreateButton()}>Use capish</button>
     </div>
   )
 }
