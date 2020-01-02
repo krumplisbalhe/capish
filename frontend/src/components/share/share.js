@@ -21,7 +21,7 @@ const Share = ({roomId, onClickCreateButton}) => {
 					/>
 				</Link>
 			</div>
-			<button className="useButton" onClick={()=>onClickCreateButton()}>Use capish</button>
+			<button className="useButton" onClick={onClickCreateButton}>Use capish</button>
     </div>
   )
 }

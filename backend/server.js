@@ -40,8 +40,7 @@ io.on('connection', socket => {
   console.log('a user connected', roomId)
   if(roomId){
     knex('rooms').where({roomId: roomId}).then(data=>{
-      console.log(data, 'roomexists')
-      io.emit('roomUpdated', data[0])
+      socket.emit('roomUpdated', data[0])
     })
   }
   socket.on('create', hashedUser => {
@@ -56,8 +55,31 @@ io.on('connection', socket => {
     }
     knex('rooms').insert(data).then(res => {
       console.log(res)
-      io.emit('roomCreated', data)
+      socket.emit('roomCreated', data)
     })
+  })
+  socket.on('update', data => {
+    data.result = JSON.stringify(data.result)
+    knex('rooms').where({roomId: roomId}).update(data).then(res => {
+      socket.broadcast.emit('roomUpdated', data)
+      console.log(data)
+    })
+  })
+  socket.on('vote', voteData => {
+    knex('rooms').where({roomId: roomId}).then(roomData=>{
+      roomData = roomData[0]
+      roomData.result = JSON.parse(roomData.result)
+      roomData.result[voteData.answer].push(voteData.user)
+      roomData.result = JSON.stringify(roomData.result)
+      knex('rooms').where({roomId: roomId}).update({result: roomData.result}).then( res => {
+        console.log(`${voteData.user} voted for ${voteData.answer}`)
+        socket.broadcast.emit('roomUpdated', roomData)
+      })
+    })
+    // knex('rooms').where({roomId: roomId}).update(data).then(res => {
+    //   socket.broadcast.emit('roomUpdated', data)
+    //   console.log(data)
+    // })
   })
   socket.on('disconnect', () => {
     console.log('a user left')

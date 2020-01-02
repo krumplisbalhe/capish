@@ -3,17 +3,18 @@ import {Link} from 'react-router-dom'
 import {ReactComponent as Check} from '../assets/check.svg'
 import './create.css'
 
-const Create = () => {
-	const [activeOption, setActiveOption] = useState('');
+const Create = ({onClickEditQuestionButton}) => {
+	const [activeOption, setActiveOption] = useState('')
+	const [question, setQuestion] = useState('')
 	return (
     <div className="create">
 			<h1 className="firstQuestion">Add your question and choose from the options:</h1>
-			<input className="questionInput" />
+			<input type="text" className="questionInput" value={question} onChange={event => setQuestion(event.target.value)} />
 				<div
-					onClick={()=>setActiveOption('1')}
-					className={activeOption === '1' ? 'active img1' : 'img1'}
+					onClick={()=>setActiveOption(2)}
+					className={activeOption === 2 ? 'active img1' : 'img1'}
 				>
-					{activeOption === '1' &&
+					{activeOption === 2 &&
 						<Check />
 					}
 					<h2>
@@ -24,10 +25,10 @@ const Create = () => {
 					</h3>
 				</div>
 				<div
-					onClick={()=>setActiveOption('2')}
-					className={activeOption === '2' ? 'active img2' : 'img2'}
+					onClick={()=>setActiveOption(3)}
+					className={activeOption === 3 ? 'active img2' : 'img2'}
 				>
-					{activeOption === '2' &&
+					{activeOption === 3 &&
 						<Check />
 					}
 					<h2>
@@ -38,10 +39,10 @@ const Create = () => {
 					</h3>
 				</div>
 				<div
-					onClick={()=>setActiveOption('3')}
-					className={activeOption === '3' ? 'active img3' : 'img3'}
+					onClick={()=>setActiveOption(4)}
+					className={activeOption === 4 ? 'active img3' : 'img3'}
 				>
-					{activeOption === '3' &&
+					{activeOption === 4 &&
 						<Check />
 					}
 					<h2>
@@ -51,11 +52,9 @@ const Create = () => {
 						Deep understanding
 					</h3>
 				</div>
-			<Link className="createCapishButton" to="/share">
-				<button>
-					Capish?
+				<button className="createCapishButton" onClick={()=>onClickEditQuestionButton(question, activeOption)}>
+					Capish
 				</button>
-			</Link>
     </div>
   )
 }
