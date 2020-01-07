@@ -1,0 +1,46 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "extends": [
+    "airbnb"
+  ],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react"
+  ],
+  "rules": {
+    "semi": ["error", "never"],
+    "object-curly-spacing": ["error", "never"],
+    "react/prop-types": 0,
+    "jsx-quotes": ["error", "prefer-double"],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "indent": ["error", 2],
+    "no-tabs": 0,
+    "arrow-parens": ["error", "as-needed"],
+    "react/jsx-props-no-spreading": [0],
+    "react/jsx-one-expression-per-line": [0],
+    "no-mixed-operators": [0],
+    "comma-dangle": ["error", "never"],
+    "object-curly-newline": ["error", {
+      "ObjectExpression": {"minProperties": 3},
+      "ObjectPattern": { "multiline": true },
+      "ImportDeclaration": "never",
+      "ExportDeclaration": "never"
+    }],
+    "jsx-a11y/click-events-have-key-events": [0],
+    "jsx-a11y/no-static-element-interactions": [0],
+    "operator-linebreak": ["error", "after"]
+  }
+}

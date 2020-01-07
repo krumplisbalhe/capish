@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import sha1 from 'crypto-js/sha1'
 import LandingPage from './components/landingPage/landingPage'
 import Room from './components/room/room'
 import Join from './components/join/join'
-import sha1 from 'crypto-js/sha1'
 import './vars.css'
 import './App.css'
 
@@ -23,20 +23,21 @@ function App() {
           <div className="logo">capish?</div>
         </div>
         <div className={`content ${stateForCss}`}>
-        <Switch>
-          <Route
-              exact path="/"
+          <Switch>
+            <Route
+              exact
+              path="/"
               render={() => <LandingPage />}
-          />
-          <Route
+            />
+            <Route
               path="/room/:roomId?"
               render={() => <Room liftStateForCss={liftStateForCss} />}
-          />
-          <Route
+            />
+            <Route
               path="/join"
               render={() => <Join />}
-          />
-        </Switch>
+            />
+          </Switch>
         </div>
       </div>
     </Router>
