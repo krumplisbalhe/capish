@@ -77,8 +77,8 @@ const Room = ({liftStateForCss}) => {
 
 	return (
       <div className="room">
-        This is room {roomId} the user is {currentUser} and {hashedUserId} and {isAdmin}.
-        {JSON.stringify(roomData)}
+        {/* This is room {roomId} the user is {currentUser} and {hashedUserId} and {isAdmin}.
+        {JSON.stringify(roomData)} */}
         {(isAdmin && roomData.question === '' && !roomData.isEditing && !roomData.isAnswering) &&
           <Share roomId={roomId} onClickCreateButton={onClickCreateButton} />
         }

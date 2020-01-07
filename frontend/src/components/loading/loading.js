@@ -6,16 +6,18 @@ const Loading = ({isAdmin, onClickStopVotingButton}) => {
 	return (
     <div className="loading">
 			{isAdmin ? (
-				<h1>Click the button to stop this Capish</h1>
+				<h1 className="loadingText">Click the button to stop the voting process</h1>
 			) :(
-				<h1 className="loadingText">Please wait for the new question</h1>
+				<h1 className="loadingText">The results are on the board</h1>
 			)
 			}
 			<div className="illustration"></div>
-			{isAdmin && (
+			{isAdmin ? (
 				<button className="buttonShowResults" onClick={onClickStopVotingButton}>
-					Stop voting
+					Stop
 				</button>
+			) : (
+				<h1 className="buttonShowResults">Waiting for next question...</h1>
 			)}
     </div>
   )

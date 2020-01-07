@@ -3,12 +3,13 @@
 	display: grid;
   grid-template-rows: 1fr 3fr 0.5fr 1fr 90px;
   grid-template-columns: 2fr 0.5fr 1fr 1fr 1fr 0.5fr 2fr;
-  grid-template-areas: "landingText landingText landingText landingText landingText landingText landingText" ". . illustration illustration illustration . ." ". . . . . . ." ". create create . join join ." ". . . . . . .";
+  grid-template-areas: "loadingText loadingText loadingText loadingText loadingText loadingText loadingText" ". . illustration illustration illustration . ." ". . . . . . ." "stopVoting stopVoting stopVoting stopVoting stopVoting stopVoting stopVoting" ". . . . . . .";
   justify-items: center;
 }
 
 .loadingText{
-  grid-area: landingText;
+  grid-area: loadingText;
+  text-align: center;
   align-self: center;
   font-size: 40px;
   text-align: center;
@@ -35,5 +36,5 @@
 }
 
 .buttonShowResults{
-  grid-area: join;
+  grid-area: stopVoting;
 }
