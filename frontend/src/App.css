@@ -13,6 +13,10 @@
   grid-area: content;
 }
 
+.content.white{
+background-color: white;
+}
+
 .header {
   grid-area: header;
 }

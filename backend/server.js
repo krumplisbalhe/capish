@@ -16,8 +16,10 @@ knex.schema.createTable('rooms', table => {
   table.string('creator')
   table.string('roomId')
   table.string('question')
-  table.json('result')
-  table.boolean('isActive')
+  table.string('result')
+  table.integer('numberOfOptions')
+  table.boolean('isEditing')
+  table.boolean('isAnswering')
 }).then()
 
 // knex('rooms').insert({
@@ -49,29 +51,35 @@ io.on('connection', socket => {
     const data = {
       creator: hashedUser,
       roomId: randomRoomId,
-      isActive: false,
+      isEditing: false,
+      isAnswering: false,
       question: '',
-      result: {}
+      result: '{}',
+      numberOfOptions: 0
     }
     knex('rooms').insert(data).then(res => {
-      console.log(res)
       socket.emit('roomCreated', data)
     })
   })
   socket.on('update', data => {
     data.result = JSON.stringify(data.result)
-    knex('rooms').where({roomId: roomId}).update(data).then(res => {
-      socket.broadcast.emit('roomUpdated', data)
-      console.log(data)
-    })
+    console.log(data.roomId, data)
+    knex('rooms').where('roomId', data.roomId).update({
+      isEditing: data.isEditing,
+      isAnswering: data.isAnswering,
+      question: data.question,
+      result: data.result,
+      numberOfOptions: data.numberOfOptions
+    }).then()
   })
   socket.on('vote', voteData => {
-    knex('rooms').where({roomId: roomId}).then(roomData=>{
+    console.log(voteData)
+    knex('rooms').where('roomId', voteData.roomId).then(roomData=>{
       roomData = roomData[0]
       roomData.result = JSON.parse(roomData.result)
       roomData.result[voteData.answer].push(voteData.user)
       roomData.result = JSON.stringify(roomData.result)
-      knex('rooms').where({roomId: roomId}).update({result: roomData.result}).then( res => {
+      knex('rooms').where('roomId', voteData.roomId).update({result: roomData.result}).then( res => {
         console.log(`${voteData.user} voted for ${voteData.answer}`)
         socket.broadcast.emit('roomUpdated', roomData)
       })

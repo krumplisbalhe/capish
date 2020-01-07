@@ -50,6 +50,7 @@ h2{
 .questionInput {
   grid-area: questionInput;
   font-size: 32px;
+  text-align: center;
 }
 
 .img1 {

@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
-import {Link} from 'react-router-dom'
+// import {Link} from 'react-router-dom'
 import {ReactComponent as Check} from '../assets/check.svg'
 import './create.css'
 
-const Create = ({onClickEditQuestionButton}) => {
+const Create = ({onClickCapishButton}) => {
 	const [activeOption, setActiveOption] = useState('')
 	const [question, setQuestion] = useState('')
 	return (
@@ -52,7 +52,7 @@ const Create = ({onClickEditQuestionButton}) => {
 						Deep understanding
 					</h3>
 				</div>
-				<button className="createCapishButton" onClick={()=>onClickEditQuestionButton(question, activeOption)}>
+				<button className="createCapishButton" onClick={()=>onClickCapishButton(question, activeOption)}>
 					Capish
 				</button>
     </div>

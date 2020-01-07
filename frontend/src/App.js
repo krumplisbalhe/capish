@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import LandingPage from './components/landingPage/landingPage'
 import Room from './components/room/room'
@@ -10,13 +10,19 @@ import './App.css'
 function App() {
   !localStorage.getItem('userId') && localStorage.setItem('userId', sha1(Math.random().toString()).toString())
 
+  const [stateForCss, setStateForCss] = useState('')
+
+  const liftStateForCss = () => {
+    setStateForCss('white')
+  }
+
   return (
     <Router>
       <div className="app">
         <div className="header">
           <div className="logo">capish?</div>
         </div>
-        <div className="content">
+        <div className={`content ${stateForCss}`}>
         <Switch>
           <Route
               exact path="/"
@@ -24,7 +30,7 @@ function App() {
           />
           <Route
               path="/room/:roomId?"
-              render={() => <Room />}
+              render={() => <Room liftStateForCss={liftStateForCss} />}
           />
           <Route
               path="/join"
