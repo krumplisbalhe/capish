@@ -8,7 +8,9 @@ import './vars.css'
 import './App.css'
 
 function App() {
-  !localStorage.getItem('userId') && localStorage.setItem('userId', sha1(Math.random().toString()).toString())
+  if (!localStorage.getItem('userId')) {
+    localStorage.setItem('userId', sha1(Math.random().toString()).toString())
+  }
 
   const [stateForCss, setStateForCss] = useState('')
 

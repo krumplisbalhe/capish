@@ -166,7 +166,7 @@ const Room = ({liftStateForCss}) => {
       {(!isAdmin &&
       !roomData.isEditing &&
       !roomData.isAnswering &&
-      !roomData.question === ''
+      roomData.question !== ''
       ) && <Loading isAdmin={isAdmin} />}
     </div>
   )

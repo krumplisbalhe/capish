@@ -2,12 +2,16 @@ import React from 'react'
 // import {Link} from 'react-router-dom'
 import './loading.css'
 
-const Loading = ({isAdmin, onClickStopVotingButton}) => (
+const Loading = ({isAdmin, onClickStopVotingButton, isFirstQuestion}) => (
   <div className="loading">
-    {isAdmin ? (
+    {isAdmin && (
       <h1 className="loadingText">Click the button to stop the voting process</h1>
-    ) : (
-      <h1 className="loadingText">The results are on the board</h1>
+    )}
+    {!isAdmin && isFirstQuestion && (
+        <h1 className="loadingText">Waiting for the question</h1>
+    )}
+    {!isAdmin && !isFirstQuestion && (
+        <h1 className="loadingText">The results are on the board</h1>
     )}
     <div className="illustration" />
     {isAdmin ? (
@@ -15,7 +19,9 @@ const Loading = ({isAdmin, onClickStopVotingButton}) => (
         Stop
       </button>
     ) : (
-      <h1 className="buttonShowResults">Waiting for next question...</h1>
+      !isFirstQuestion && (
+        <h1 className="buttonShowResults">Waiting for next question...</h1>
+      )
     )}
   </div>
 )

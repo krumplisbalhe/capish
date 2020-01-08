@@ -11,8 +11,8 @@ const Result = ({question, numberOfOptions, result, onAddNewQuestion}) => {
   }
   const totalOfResults = finalResult.reduce((a, b) => a + b, 0)
   const showNumberInPercentage = number => {
-    const numberInPercentage = ((number / totalOfResults) * 100)
-    return numberInPercentage
+    let numberInPercentage = ((number / totalOfResults) * 100)
+    return numberInPercentage = numberInPercentage ? numberInPercentage : 0
   }
   const typeOfArray = type => {
     if (type === 2) {
@@ -26,12 +26,14 @@ const Result = ({question, numberOfOptions, result, onAddNewQuestion}) => {
     }
   }
 
+  const generateIdForKey = (index) => (`id${Math.random().toString(36).substr(index, 9)}`)
+
   return (
     <div className="result">
       <h1 className="question">{question}</h1>
       <div className="resultItems">
         {finalResult.map((item, index) => (
-          <div className="item" key={index}>
+          <div className="item" key={generateIdForKey(index)}>
             <img alt="emojiImage" src={typeOfArray(numberOfOptions)[index]} height="42" width="42" />
             <span className="percentageNumber" index={index}>
               {`${showNumberInPercentage(item).toFixed(1)}%`}
