@@ -74,7 +74,7 @@ const Room = ({liftStateForCss}) => {
     setAnswer(vote)
     let result = roomData.result
     result[`option${vote}`].push(currentUser)
-    setRoomData({...roomData, result, ...{isAnswering: false}})
+    setRoomData({...roomData, result})
     console.log(roomData, hasVoted)
     socket.emit('vote', {
       roomId,
@@ -136,8 +136,7 @@ const Room = ({liftStateForCss}) => {
       {(
         !isAdmin &&
         roomData.question === '' &&
-        !roomData.isEditing &&
-        !roomData.isAnswering
+        !roomData.isEditing
       ) && <Loading isAdmin={isAdmin} isFirstQuestion/>}
       {(
         isAdmin &&
@@ -158,7 +157,7 @@ const Room = ({liftStateForCss}) => {
       {(
         !isAdmin &&
         !roomData.isEditing &&
-        roomData.isAnswering
+        !hasVoted
       ) && (
         <Answer
           onClickVote={onClickVote}
@@ -181,7 +180,6 @@ const Room = ({liftStateForCss}) => {
       )}
       {(!isAdmin &&
       !roomData.isEditing &&
-      !roomData.isAnswering &&
       roomData.question !== '' &&
       hasVoted
       ) && <Loading isAdmin={isAdmin} isFirstQuestion={false} />}
