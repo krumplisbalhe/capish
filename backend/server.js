@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
-const http = require('http').createServer(app)
-const io = require('socket.io')(http)
+const server = require('http').Server(app)
+const io = require('socket.io')(server)
 
 const knex = require('knex')({
   client: 'sqlite3',
@@ -21,18 +21,6 @@ knex.schema.createTable('rooms', table => {
   table.boolean('isEditing')
   table.boolean('isAnswering')
 }).then()
-
-// knex('rooms').insert({
-//   question: 'Slaughterhouse Five',
-//   creator: 'Stefan',
-//   roomId:'jkjk67',
-//   result: JSON.stringify({
-//     'gfh78': '1'
-//   }),
-//   isActive: false
-// }).then(res => {
-//   console.log(res)
-// })
 
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
@@ -81,7 +69,7 @@ io.on('connection', socket => {
       roomData.result = JSON.stringify(roomData.result)
       knex('rooms').where('roomId', voteData.roomId).update({result: roomData.result}).then( res => {
         console.log(`${voteData.user} voted for ${voteData.answer}`)
-        socket.broadcast.emit('roomUpdated', roomData)
+        socket.emit('roomUpdated', roomData)
       })
     })
     // knex('rooms').where({roomId: roomId}).update(data).then(res => {
@@ -94,6 +82,6 @@ io.on('connection', socket => {
   })
 })
 
-http.listen(8080, () => {
+server.listen(8080, () => {
   console.log('listening on *:8080');
 })
