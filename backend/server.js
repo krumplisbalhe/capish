@@ -28,7 +28,9 @@ app.use(express.json())
 io.on('connection', socket => {
   const roomId = socket.handshake.query.roomId
   console.log('a user connected', roomId)
+  //if we already have a roomId, for example a new person joins to the room
   if(roomId){
+    //we need the first element of the array because we get it back the data from the db as an array
     knex('rooms').where({roomId: roomId}).then(data=>{
       socket.emit('roomUpdated', data[0])
     })
@@ -45,6 +47,7 @@ io.on('connection', socket => {
       result: '{}',
       numberOfOptions: 0
     }
+    //we put it inside the then so it happens after its inserrted into the db
     knex('rooms').insert(data).then(res => {
       socket.emit('roomCreated', data)
     })
@@ -58,7 +61,14 @@ io.on('connection', socket => {
       question: data.question,
       result: data.result,
       numberOfOptions: data.numberOfOptions
-    }).then()
+    }).then(() => {
+      //when the admin makes changes, he just saves it locally and broadcasts the data to everyone else
+      knex('rooms').where('roomId', data.roomId).then(newData => {
+        socket.broadcast.emit('roomUpdated', newData[0])
+        console.log(newData)
+      })
+    })
+    socket.broadcast.emit('roomUpdated', data)
   })
   socket.on('vote', voteData => {
     console.log(voteData)
@@ -69,13 +79,9 @@ io.on('connection', socket => {
       roomData.result = JSON.stringify(roomData.result)
       knex('rooms').where('roomId', voteData.roomId).update({result: roomData.result}).then( res => {
         console.log(`${voteData.user} voted for ${voteData.answer}`)
-        socket.emit('roomUpdated', roomData)
+        socket.broadcast.emit('roomUpdated', roomData)
       })
     })
-    // knex('rooms').where({roomId: roomId}).update(data).then(res => {
-    //   socket.broadcast.emit('roomUpdated', data)
-    //   console.log(data)
-    // })
   })
   socket.on('disconnect', () => {
     console.log('a user left')

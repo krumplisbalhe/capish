@@ -15,6 +15,7 @@ let socket = null
 let roomId = ''
 
 const Room = ({liftStateForCss}) => {
+  //its a roomid or empty string
   roomId = useParams().roomId || roomId
   const history = useHistory()
 
@@ -82,6 +83,7 @@ const Room = ({liftStateForCss}) => {
   }
 
   useEffect(() => {
+    //connect to the server, initiate the socket - if no roomId, goes to create, at the bottom
     socket = io('http://172.24.1.128:8080', {query: {roomId: roomId || ''}})
     socket.on('roomCreated', data => {
       console.log('roomCreated', data)
@@ -90,7 +92,10 @@ const Room = ({liftStateForCss}) => {
       setRoomData(data)
     })
     socket.on('roomUpdated', data => {
-      data.result = JSON.parse(data.result)
+      if(data.result){
+        data.result = JSON.parse(data.result)
+      }
+      
       console.log('roomUpdated', data)
       console.log(data.roomId, roomId)
       if (data.roomId === roomId) setRoomData(data)
@@ -122,7 +127,7 @@ const Room = ({liftStateForCss}) => {
         roomData.question === '' &&
         !roomData.isEditing &&
         !roomData.isAnswering
-      ) && <Loading isAdmin={isAdmin} />}
+      ) && <Loading isAdmin={isAdmin} isFirstQuestion/>}
       {(
         isAdmin &&
         roomData.isEditing &&
@@ -167,7 +172,7 @@ const Room = ({liftStateForCss}) => {
       !roomData.isEditing &&
       !roomData.isAnswering &&
       roomData.question !== ''
-      ) && <Loading isAdmin={isAdmin} />}
+      ) && <Loading isAdmin={isAdmin} isFirstQuestion={false} />}
     </div>
   )
 }
