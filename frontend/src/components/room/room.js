@@ -31,6 +31,13 @@ const Room = ({liftStateForCss}) => {
   const [answer, setAnswer] = useState(0)
 
   const isAdmin = hashedUserId === roomData.creator
+  let hasVoted = false
+
+  for (let option in roomData.result) {
+    if (roomData.result[option].includes(currentUser)) {
+      hasVoted = true
+    }
+  }
 
   const onClickCreateButton = () => {
     setRoomData({...roomData, isEditing: true})
@@ -65,6 +72,10 @@ const Room = ({liftStateForCss}) => {
 
   const onClickVote = vote => {
     setAnswer(vote)
+    let result = roomData.result
+    result[`option${vote}`].push(currentUser)
+    setRoomData({...roomData, result, ...{isAnswering: false}})
+    console.log(roomData, hasVoted)
     socket.emit('vote', {
       roomId,
       answer: `option${vote}`,
@@ -171,7 +182,8 @@ const Room = ({liftStateForCss}) => {
       {(!isAdmin &&
       !roomData.isEditing &&
       !roomData.isAnswering &&
-      roomData.question !== ''
+      roomData.question !== '' &&
+      hasVoted
       ) && <Loading isAdmin={isAdmin} isFirstQuestion={false} />}
     </div>
   )
