@@ -8,10 +8,10 @@ const Loading = ({isAdmin, onClickStopVotingButton, isFirstQuestion}) => (
       <h1 className="loadingText">Click the button to stop the voting process</h1>
     )}
     {!isAdmin && isFirstQuestion && (
-        <h1 className="loadingText">Waiting for the question</h1>
+      <h1 className="loadingText">Waiting for the question</h1>
     )}
     {!isAdmin && !isFirstQuestion && (
-        <h1 className="loadingText">The results are on the board</h1>
+      <h1 className="loadingText">The results are on the board</h1>
     )}
     <div className="illustration" />
     {isAdmin ? (

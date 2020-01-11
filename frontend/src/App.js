@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom'
 import sha1 from 'crypto-js/sha1'
 import LandingPage from './components/landingPage/landingPage'
@@ -20,7 +20,7 @@ function App() {
             <div className="logo">capish?</div>
           </Link>
         </div>
-        <div className='content'>
+        <div className="content">
           <Switch>
             <Route
               exact

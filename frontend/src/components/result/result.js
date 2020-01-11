@@ -26,7 +26,7 @@ const Result = ({question, numberOfOptions, result, onAddNewQuestion}) => {
     }
   }
 
-  const generateIdForKey = (index) => (`id${Math.random().toString(36).substr(index, 9)}`)
+  const generateIdForKey = index => (`id${Math.random().toString(36).substr(index, 9)}`)
 
   return (
     <div className="result">
@@ -41,7 +41,7 @@ const Result = ({question, numberOfOptions, result, onAddNewQuestion}) => {
             <div className="barContainer">
               <div
                 className="bar"
-                style={{gridColumnStart: 1, gridColumnEnd: Math.round(showNumberInPercentage(item)+2)}}
+                style={{gridColumnEnd: Math.round(showNumberInPercentage(item) + 2)}}
               />
             </div>
           </div>

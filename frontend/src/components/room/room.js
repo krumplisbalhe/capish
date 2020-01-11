@@ -15,7 +15,7 @@ let socket = null
 let roomId = ''
 
 const Room = () => {
-  //its a roomid or empty string
+  // its a roomid or empty string
   roomId = useParams().roomId || roomId
   const history = useHistory()
 
@@ -65,17 +65,15 @@ const Room = () => {
       isEditing: false,
       isAnswering: false
     }
-    console.log(newData, 'stop voting')
     setRoomData(newData)
     socket.emit('update', newData)
   }
 
   const onClickVote = vote => {
     setAnswer(vote)
-    let result = roomData.result
+    const result = roomData.result
     result[`option${vote}`].push(currentUser)
     setRoomData({...roomData, result})
-    console.log(roomData, hasVoted)
     socket.emit('vote', {
       roomId,
       answer: `option${vote}`,
@@ -94,7 +92,7 @@ const Room = () => {
   }
 
   useEffect(() => {
-    //connect to the server, initiate the socket - if no roomId, goes to create, at the bottom
+    // connect to the server, initiate the socket - if no roomId, goes to create, at the bottom
     socket = io('http://172.24.1.128:8080', {query: {roomId: roomId || ''}})
     socket.on('roomCreated', data => {
       console.log('roomCreated', data)
@@ -103,12 +101,11 @@ const Room = () => {
       setRoomData(data)
     })
     socket.on('roomUpdated', data => {
-      if(data.result){
+      if (data.result) {
         data.result = JSON.parse(data.result)
       }
 
       console.log('roomUpdated', data)
-      console.log(data.roomId, roomId)
       if (data.roomId === roomId) setRoomData(data)
     })
     !roomId && socket.emit('create', hashedUserId)
@@ -133,7 +130,7 @@ const Room = () => {
         !isAdmin &&
         roomData.question === '' &&
         !roomData.isEditing
-      ) && <Loading isAdmin={isAdmin} isFirstQuestion/>}
+      ) && <Loading isAdmin={isAdmin} isFirstQuestion />}
       {Boolean(
         isAdmin &&
         roomData.isEditing &&
@@ -175,9 +172,10 @@ const Room = () => {
           onAddNewQuestion={onAddNewQuestion}
         />
       )}
-      {Boolean(!isAdmin &&
-      roomData.question !== '' &&
-      (hasVoted || !roomData.isAnswering)
+      {Boolean(
+        !isAdmin &&
+        roomData.question !== '' &&
+        (hasVoted || !roomData.isAnswering)
       ) && <Loading isAdmin={isAdmin} isFirstQuestion={false} />}
     </div>
   )

@@ -29,7 +29,7 @@
 
 .bar{
 	background-color: var(--blue);
-	/* grid-column-start: 1; */
+	grid-column-start: 1;
 	border-right: 1px solid var(--blue);
 	height: 40px;
 }
