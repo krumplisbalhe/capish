@@ -28,16 +28,16 @@ app.use(express.json())
 io.on('connection', socket => {
   const roomId = socket.handshake.query.roomId
   console.log('a user connected', roomId)
-  //if we already have a roomId, for example a new person joins to the room
+  //if roomId already exists, for example a person joins to a room
   if(roomId){
-    //we need the first element of the array because we get it back the data from the db as an array
-    knex('rooms').where({roomId: roomId}).then(data=>{
+    //we need only the first element of the array because we get the data back from the DB as an array
+    knex('rooms').where('roomId', roomId).then(data=>{
       socket.emit('roomUpdated', data[0])
     })
   }
   socket.on('create', hashedUser => {
-    console.log(hashedUser)
     const randomRoomId = Math.random().toString(36).substring(2,7)
+    //the result has to be string in the DB and object on the FE
     const data = {
       creator: hashedUser,
       roomId: randomRoomId,
@@ -47,14 +47,13 @@ io.on('connection', socket => {
       result: '{}',
       numberOfOptions: 0
     }
-    //we put it inside the then so it happens after its inserrted into the db
+    //if the emit is inside the then, it happens after the insertion to DB
     knex('rooms').insert(data).then(res => {
       socket.emit('roomCreated', data)
     })
   })
   socket.on('update', data => {
     data.result = JSON.stringify(data.result)
-    console.log(data.roomId, data)
     knex('rooms').where('roomId', data.roomId).update({
       isEditing: data.isEditing,
       isAnswering: data.isAnswering,
@@ -65,13 +64,11 @@ io.on('connection', socket => {
       //when the admin makes changes, he just saves it locally and broadcasts the data to everyone else
       knex('rooms').where('roomId', data.roomId).then(newData => {
         socket.broadcast.emit('roomUpdated', newData[0])
-        console.log(newData)
       })
     })
     socket.broadcast.emit('roomUpdated', data)
   })
   socket.on('vote', voteData => {
-    console.log(voteData)
     knex('rooms').where('roomId', voteData.roomId).then(roomData=>{
       roomData = roomData[0]
       roomData.result = JSON.parse(roomData.result)
