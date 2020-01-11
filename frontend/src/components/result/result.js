@@ -41,7 +41,7 @@ const Result = ({question, numberOfOptions, result, onAddNewQuestion}) => {
             <div className="barContainer">
               <div
                 className="bar"
-                style={{gridColumnEnd: Math.round(showNumberInPercentage(item))}}
+                style={{gridColumnStart: 1, gridColumnEnd: Math.round(showNumberInPercentage(item)+2)}}
               />
             </div>
           </div>

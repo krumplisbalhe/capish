@@ -118,7 +118,7 @@ const Room = () => {
     <div className="room">
       {/* This is room {roomId} the user is {currentUser} and {hashedUserId} and {isAdmin}.
       {JSON.stringify(roomData)} */}
-      {(
+      {Boolean(
         isAdmin &&
         roomData.question === '' &&
         !roomData.isEditing &&
@@ -129,18 +129,18 @@ const Room = () => {
           onClickCreateButton={onClickCreateButton}
         />
       )}
-      {(
+      {Boolean(
         !isAdmin &&
         roomData.question === '' &&
         !roomData.isEditing
       ) && <Loading isAdmin={isAdmin} isFirstQuestion/>}
-      {(
+      {Boolean(
         isAdmin &&
         roomData.isEditing &&
         !roomData.isAnswering
       ) &&
         <Create onClickCapishButton={onClickCapishButton} />}
-      {(
+      {Boolean(
         isAdmin &&
         !roomData.isEditing &&
         roomData.isAnswering
@@ -150,7 +150,7 @@ const Room = () => {
           onClickStopVotingButton={onClickStopVotingButton}
         />
       )}
-      {(
+      {Boolean(
         !isAdmin &&
         !roomData.isEditing &&
         roomData.isAnswering &&
@@ -162,7 +162,7 @@ const Room = () => {
           numberOfOptions={roomData.numberOfOptions}
         />
       )}
-      {(
+      {Boolean(
         isAdmin &&
         !roomData.isEditing &&
         !roomData.isAnswering &&
@@ -175,7 +175,7 @@ const Room = () => {
           onAddNewQuestion={onAddNewQuestion}
         />
       )}
-      {(!isAdmin &&
+      {Boolean(!isAdmin &&
       roomData.question !== '' &&
       (hasVoted || !roomData.isAnswering)
       ) && <Loading isAdmin={isAdmin} isFirstQuestion={false} />}
