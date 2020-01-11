@@ -34,7 +34,7 @@ const Result = ({question, numberOfOptions, result, onAddNewQuestion}) => {
       <div className="resultItems">
         {finalResult.map((item, index) => (
           <div className="item" key={generateIdForKey(index)}>
-            <img alt="emojiImage" src={typeOfArray(numberOfOptions)[index]} height="42" width="42" />
+            <img className="emojiImage" alt="emojiImage" src={typeOfArray(numberOfOptions)[index]} height="42" width="42" />
             <span className="percentageNumber" index={index}>
               {`${showNumberInPercentage(item).toFixed(1)}%`}
             </span>

@@ -14,7 +14,7 @@ const hashedUserId = sha1(currentUser).toString()
 let socket = null
 let roomId = ''
 
-const Room = ({liftStateForCss}) => {
+const Room = () => {
   //its a roomid or empty string
   roomId = useParams().roomId || roomId
   const history = useHistory()
@@ -106,17 +106,13 @@ const Room = ({liftStateForCss}) => {
       if(data.result){
         data.result = JSON.parse(data.result)
       }
-      
+
       console.log('roomUpdated', data)
       console.log(data.roomId, roomId)
       if (data.roomId === roomId) setRoomData(data)
     })
     !roomId && socket.emit('create', hashedUserId)
   }, [])
-
-  if ((!isAdmin && !roomData.isEditing && roomData.isAnswering)) {
-    liftStateForCss()
-  }
 
   return (
     <div className="room">
@@ -157,6 +153,7 @@ const Room = ({liftStateForCss}) => {
       {(
         !isAdmin &&
         !roomData.isEditing &&
+        roomData.isAnswering &&
         !hasVoted
       ) && (
         <Answer
@@ -179,9 +176,8 @@ const Room = ({liftStateForCss}) => {
         />
       )}
       {(!isAdmin &&
-      !roomData.isEditing &&
       roomData.question !== '' &&
-      hasVoted
+      (hasVoted || !roomData.isAnswering)
       ) && <Loading isAdmin={isAdmin} isFirstQuestion={false} />}
     </div>
   )

@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom'
 import sha1 from 'crypto-js/sha1'
 import LandingPage from './components/landingPage/landingPage'
 import Room from './components/room/room'
@@ -12,19 +12,15 @@ function App() {
     localStorage.setItem('userId', sha1(Math.random().toString()).toString())
   }
 
-  const [stateForCss, setStateForCss] = useState('')
-
-  const liftStateForCss = () => {
-    setStateForCss('white')
-  }
-
   return (
     <Router>
       <div className="app">
         <div className="header">
-          <div className="logo">capish?</div>
+          <Link to="/">
+            <div className="logo">capish?</div>
+          </Link>
         </div>
-        <div className={`content ${stateForCss}`}>
+        <div className='content'>
           <Switch>
             <Route
               exact
@@ -33,7 +29,7 @@ function App() {
             />
             <Route
               path="/room/:roomId?"
-              render={() => <Room liftStateForCss={liftStateForCss} />}
+              render={() => <Room />}
             />
             <Route
               path="/join"

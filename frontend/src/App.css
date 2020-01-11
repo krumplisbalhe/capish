@@ -3,7 +3,7 @@
   min-height: 100%;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 15% 85%;
+  grid-template-rows: 10% 90%;
   grid-template-areas: "header" "content";
   font-family: 'Red Hat Display', sans-serif;
   color: var(--blue);
@@ -11,14 +11,16 @@
 
 .content {
   grid-area: content;
-}
-
-.content.white{
-background-color: white;
+  height: 100%;
 }
 
 .header {
   grid-area: header;
+}
+
+.header > a {
+  color: var(--blue);
+  animation: colorchange 5s infinite alternate;
 }
 
 .logo{
@@ -26,6 +28,10 @@ background-color: white;
   font-size: 25px;
   font-weight: bold;
   letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  cursor: pointer;
 }
 
 button {
@@ -71,11 +77,30 @@ input:focus{
   border-bottom: 3px solid var(--blue);
 }
 
+.emojiImage{
+	border-radius: 50px;
+}
+
 @media screen and (max-width: 700px) {
   button{
     width: 150px;
   }
   .app{
     grid-template-rows: 10% 90%;
+  }
+}
+
+@keyframes colorchange {
+  0% {
+    color: var(--blue);
+  }
+  33% {
+    color: grey;
+  }
+  66% {
+    color: var(--pink);
+  }
+  100% {
+    color: var(--blue);
   }
 }
