@@ -5,7 +5,7 @@ import {ReactComponent as Camera} from '../assets/camera.svg'
 import './share.css'
 
 const Share = ({roomId, onClickCreateButton}) => {
-  const joinLink = `http://localhost:3000/room/${roomId}`
+  const joinLink = `https://capish.rita.wtf/room/${roomId}`
   return (
     <div className="share">
       <h1 className="shareText">

@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
+const path = require('path')
 
 const knex = require('knex')({
   client: 'sqlite3',
@@ -24,6 +25,7 @@ knex.schema.createTable('rooms', table => {
 
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
+app.use(express.static('public'))
 
 io.on('connection', socket => {
   const roomId = socket.handshake.query.roomId
@@ -66,7 +68,7 @@ io.on('connection', socket => {
         socket.broadcast.emit('roomUpdated', newData[0])
       })
     })
-    socket.broadcast.emit('roomUpdated', data)
+    // socket.broadcast.emit('roomUpdated', data)
   })
   socket.on('vote', voteData => {
     knex('rooms').where('roomId', voteData.roomId).then(roomData=>{
@@ -85,6 +87,10 @@ io.on('connection', socket => {
   })
 })
 
-server.listen(8080, () => {
+app.get('*', (req, res)=>{
+  res.sendFile(path.join(__dirname, 'public', 'index.html'))
+})
+
+server.listen(3000, () => {
   console.log('listening on *:8080');
 })

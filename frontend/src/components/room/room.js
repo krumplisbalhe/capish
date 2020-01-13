@@ -93,7 +93,7 @@ const Room = () => {
 
   useEffect(() => {
     // connect to the server, initiate the socket - if no roomId, goes to create, at the bottom
-    socket = io('http://172.24.1.128:8080', {query: {roomId: roomId || ''}})
+    socket = io('https://capish.rita.wtf', {query: {roomId: roomId || ''}})
     socket.on('roomCreated', data => {
       console.log('roomCreated', data)
       data.result = JSON.parse(data.result)
@@ -104,7 +104,6 @@ const Room = () => {
       if (data.result) {
         data.result = JSON.parse(data.result)
       }
-
       console.log('roomUpdated', data)
       if (data.roomId === roomId) setRoomData(data)
     })
