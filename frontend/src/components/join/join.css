@@ -36,6 +36,9 @@ h1{
 }
 
 @media screen and (max-width: 700px) {
+	.join{
+		width: 100vw;
+	}
   .options{
 		flex-direction: column;
 		height: 80%;

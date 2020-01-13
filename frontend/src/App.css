@@ -87,6 +87,7 @@ input:focus{
   }
   .app{
     grid-template-rows: 10% 90%;
+    overflow: hidden;
   }
 }
 

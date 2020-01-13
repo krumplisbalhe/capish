@@ -20,10 +20,6 @@
   -webkit-text-stroke: 0.5px var(--blue);
 }
 
-.buttonShowResults{
-  grid-area: create;
-}
-
 .illustration{
   grid-area: illustration;
   width: 100%;
@@ -37,4 +33,11 @@
 
 .buttonShowResults{
   grid-area: stopVoting;
+}
+
+@media screen and (max-width: 700px) {
+  .loading{
+    max-width: 100vw;
+    grid-template-rows: 0px 1fr 2fr 0fr 1fr 0px;
+  }
 }
