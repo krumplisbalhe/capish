@@ -19,9 +19,14 @@ const Loading = ({isAdmin, onClickStopVotingButton, isFirstQuestion}) => (
         Stop
       </button>
     ) : (
-      !isFirstQuestion && (
-        <h1 className="buttonShowResults">Waiting for next question...</h1>
-      )
+      <>
+        {!isFirstQuestion && (
+          <h1 className="buttonShowResults">Waiting for next question...</h1>
+        )}
+        {isFirstQuestion && (
+          <h1 className="buttonShowResults">First question is coming...</h1>
+        )}
+      </>
     )}
   </div>
 )
